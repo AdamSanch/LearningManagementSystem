@@ -49,7 +49,7 @@ namespace MyApp
                     }
                     else if(result == 5)
                     {
-                        courseHelper.CreateCourseRecord();
+                        courseHelper.CreateUpdateCourseRecord();
                     }
                     else if (result == 6)
                     {
