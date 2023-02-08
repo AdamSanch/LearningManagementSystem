@@ -5,9 +5,30 @@ namespace Lib.LearningManagementSys.Services
 {
 	public class StudentService
 	{
-        private List<Person> studentList = new List<Person>();
+        private List<Person> studentList;
 
-		public void Add(Person student)
+        private static StudentService? instance;
+
+        private StudentService()
+        {
+            studentList = new List<Person>();
+
+        }
+
+        public static StudentService Current
+        {
+            get
+            {
+                if(instance == null)
+                {
+                    instance = new StudentService();
+                }
+
+                return instance;
+            }
+        }
+
+        public void Add(Person student)
 		{
 			studentList.Add(student);
 		}
@@ -24,10 +45,6 @@ namespace Lib.LearningManagementSys.Services
         {
             return studentList.Where(s => s.Name.ToUpper().Contains(name.ToUpper()));
         }
-
-        public StudentService()
-		{
-		}
 	}
 }
 

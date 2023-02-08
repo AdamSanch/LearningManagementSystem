@@ -16,7 +16,7 @@ namespace MyApp
 
             while (cont)
             {
-                Console.WriteLine("Enter a choice below");
+                Console.WriteLine("\nEnter a choice below");
                 Console.WriteLine("1. Add a student to the list");
                 Console.WriteLine("2. Update a student on the list");
                 Console.WriteLine("3. Print student list");
@@ -27,6 +27,7 @@ namespace MyApp
                 Console.WriteLine("8. Search for a course");
                 Console.WriteLine("9. Exit");
                 var input = Console.ReadLine();
+                Console.WriteLine();
 
                 if (int.TryParse(input, out int result))
                 {
