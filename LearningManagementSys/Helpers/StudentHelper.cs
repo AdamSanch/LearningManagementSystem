@@ -6,12 +6,13 @@ namespace LearningManagementSys.Helpers
 {
 	public class StudentHelper
 	{
-
         private StudentService studentService;
+        private CourseService courseService;
 
         public StudentHelper()
         {
             studentService = StudentService.Current;
+            courseService = CourseService.Current;
         }
 
         public void CreateStudentRecord(Person? updateStudent = null)
@@ -75,6 +76,8 @@ namespace LearningManagementSys.Helpers
             var name = Console.ReadLine() ?? string.Empty;
 
             studentService.SearchStudents(name).ToList().ForEach(Console.WriteLine);
+            Console.WriteLine("Student's Courses:");
+            courseService.Courses.Where(s => s.Roster.Any(s2 => s2.Name.ToUpper() == name.ToUpper())).ToList().ForEach(Console.WriteLine);
         }
 	}
 }

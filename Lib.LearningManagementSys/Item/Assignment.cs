@@ -13,7 +13,16 @@ namespace Lib.LearningManagementSys.Item
 
         public Assignment()
 		{
+			Name = string.Empty;
+			Description = string.Empty;
+			TotalAvailablePoints = 0;
+			DueDate = DateTime.Today;
 		}
-	}
+
+        public override string ToString()
+        {
+            return $"{Name} (-/{TotalAvailablePoints}) - Due:{DueDate}";
+        }
+    }
 }
 
