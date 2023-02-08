@@ -32,6 +32,12 @@ namespace Lib.LearningManagementSys.Item
             return $"{Name}({Code}) - {Description}";
         }
 
+        public void PrintCourseFull()
+        {
+            Console.WriteLine($"{Name}({Code}) - {Description}\nRoster:");
+            Roster.ForEach(Console.WriteLine);
+        }
+
     }
 }
 

@@ -7,17 +7,28 @@ namespace LearningManagementSys.Helpers
 	public class StudentHelper
 	{
 
-        private StudentService studentService = new StudentService();
+        private StudentService studentService;
 
-		public void CreateStudentRecord(Person? updateStudent = null)
-		{          
+        public StudentHelper()
+        {
+            studentService = StudentService.Current;
+        }
+
+        public void CreateStudentRecord(Person? updateStudent = null)
+		{
+            bool isNew = false;
+            if (updateStudent == null)
+            {
+                isNew = true;
+                updateStudent = new Person();
+            }
+
             Console.WriteLine("Enter student name:");
             var name = Console.ReadLine();
 
             Console.WriteLine("Enter student year ( (F)reshman, s(O)phmore, (J)unior, (S)enior ):");
             var classification = Console.ReadLine() ?? string.Empty;
             PersonClassification classEnum = PersonClassification.Freshman;
-
             if (classification.Equals("O", StringComparison.InvariantCultureIgnoreCase))
             {
                 classEnum = PersonClassification.Sophmore;
@@ -29,13 +40,6 @@ namespace LearningManagementSys.Helpers
             else if (classification.Equals("S", StringComparison.InvariantCultureIgnoreCase))
             {
                 classEnum = PersonClassification.Senior;
-            }
-
-            bool isNew = false;
-            if (updateStudent == null)
-            {
-                isNew = true;
-                updateStudent = new Person();
             }
 
             updateStudent.Name = name ?? string.Empty;
@@ -72,11 +76,6 @@ namespace LearningManagementSys.Helpers
 
             studentService.SearchStudents(name).ToList().ForEach(Console.WriteLine);
         }
-
-		public StudentHelper()
-		{
-
-		}
 	}
 }
 
