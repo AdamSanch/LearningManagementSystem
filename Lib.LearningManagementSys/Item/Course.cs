@@ -29,15 +29,8 @@ namespace Lib.LearningManagementSys.Item
 
         public override string ToString()
         {
-            return $"{Name}({Code}) - {Description}";
+            return $"{Name}({Code})";
         }
-
-        public void PrintCourseFull()
-        {
-            Console.WriteLine($"{Name}({Code}) - {Description}\nRoster:");
-            Roster.ForEach(Console.WriteLine);
-        }
-
     }
 }
 

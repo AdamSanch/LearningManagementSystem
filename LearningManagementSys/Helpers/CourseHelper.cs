@@ -9,11 +9,12 @@ namespace LearningManagementSys.Helpers
 {
 	public class CourseHelper
 	{
-		private CourseService courseService = new CourseService();
+		private CourseService courseService;
         private StudentService studentService;
 
         public CourseHelper()
         {
+            courseService = CourseService.Current;
             studentService = StudentService.Current;
         }
 
@@ -25,13 +26,6 @@ namespace LearningManagementSys.Helpers
                 isNew = true;
                 updateCourse = new Course();
             }
-
-            //Console.WriteLine("Would you like to update the course information? (Y or N)");
-            //var YorN = Console.ReadLine() ?? string.Empty;
-            //if(YorN.Equals("y", StringComparison.InvariantCultureIgnoreCase))
-            //{
-            //    newInfo = true;
-            //}
 
             Console.WriteLine("Enter the course name:");
             var name = Console.ReadLine();
@@ -62,8 +56,9 @@ namespace LearningManagementSys.Helpers
             {
                 Console.WriteLine("Enter a choice below");
                 Console.WriteLine("1. Update Course Info");
-                Console.WriteLine("2. Add students to the roster");
-                Console.WriteLine("3. Remove students from the roster");
+                Console.WriteLine("2. Add an Assignment");
+                Console.WriteLine("3. Add students to the roster");
+                Console.WriteLine("4. Remove students from the roster");
                 var input = Console.ReadLine();
                 if (int.TryParse(input, out int result))
                 {
@@ -71,11 +66,15 @@ namespace LearningManagementSys.Helpers
                     {
                         CreateUpdateCourseRecord(selectedCourse);
                     }
-                    else if (result == 2)
+                    else if(result == 2)
+                    {
+                        CreateAssignment(selectedCourse);
+                    }
+                    else if (result == 3)
                     {
                         AddToRoster(selectedCourse);
                     }
-                    else if (result == 3)
+                    else if (result == 4)
                     {
                         RemoveFromRoster(selectedCourse);
                     }
@@ -86,7 +85,6 @@ namespace LearningManagementSys.Helpers
         private void AddToRoster(Course updateCourse)
         {
             Console.WriteLine("Give the name of a student you would like to add (Q to quit)");
-            //var roster = updateCourse.Roster;
             var cont = true;
             while (cont)
             {
@@ -112,17 +110,12 @@ namespace LearningManagementSys.Helpers
                         updateCourse.Roster.Add(selectedStudent);
                     }
                 }
-
-                Console.WriteLine("-------------------");
-                updateCourse.Roster.ForEach(Console.WriteLine);
-                Console.WriteLine("-------------------");
             }
         }
 
         private void RemoveFromRoster(Course updateCourse)
         {
             Console.WriteLine("Give the name of a student you would like to remove (Q to quit)");
-            //var roster = updateCourse.Roster;
             var cont = true;
             while (cont)
             {
@@ -147,11 +140,24 @@ namespace LearningManagementSys.Helpers
                         updateCourse.Roster.Remove(selectedStudent);
                     }
                 }
-
-                Console.WriteLine("-------------------");
-                updateCourse.Roster.ForEach(Console.WriteLine);
-                Console.WriteLine("-------------------");
             }
+        }
+
+        private void CreateAssignment(Course updateCourse)
+        {
+            var assignment = new Assignment();
+            Console.WriteLine("What is the assignment's name?");
+            var name = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("What is the assignment description?");
+            var description = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("How many points is the assignment worth?:");
+            var points = Console.ReadLine();
+
+            assignment.Name = name;
+            assignment.Description = description;
+            assignment.TotalAvailablePoints = int.Parse(points ?? "0");
+
+            updateCourse.Assignments.Add(assignment);
         }
 
         public void SearchCourses()
@@ -160,7 +166,10 @@ namespace LearningManagementSys.Helpers
             ListCourses();
             var query = Console.ReadLine() ?? string.Empty;
 
-            courseService.SearchCourses(query).ToList().ForEach(s => s.PrintCourseFull());
+            courseService.SearchCourses(query).ToList().ForEach(s => Console.WriteLine($"{s.Name}({s.Code}) - {s.Description}\nRoster:"));
+            courseService.SearchCourses(query).ToList().ForEach(s => s.Roster.ForEach(Console.WriteLine));
+            Console.WriteLine("Current Assignemnts:");
+            courseService.SearchCourses(query).ToList().ForEach(s => s.Assignments.ForEach(Console.WriteLine));
         }
 
         public void ListCourses()
