@@ -15,13 +15,13 @@ namespace LearningManagementSys.Helpers
             courseService = CourseService.Current;
         }
 
-        public void CreateStudentRecord(Person? updateStudent = null)
+        public void CreateStudentRecord(Student? updateStudent = null)
 		{
             bool isNew = false;
             if (updateStudent == null)
             {
                 isNew = true;
-                updateStudent = new Person();
+                updateStudent = new Student();
             }
 
             Console.WriteLine("Enter student name:");

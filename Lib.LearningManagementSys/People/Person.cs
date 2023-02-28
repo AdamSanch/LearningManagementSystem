@@ -5,28 +5,15 @@ namespace Lib.LearningManagementSys.People
 	{
         public string Name { get; set; }
 
-        public PersonClassification Classification { get; set; }
-
-        public string Grades { get; set; }
-
         public Person()
 		{
 			Name = String.Empty;
-
-			Grades = String.Empty;
-
 		}
 
         public override string ToString()
         {
-            return $"{Name} - {Classification}";
+            return $"{Name}";
         }
     }
-
-	public enum PersonClassification
-	{
-		Freshman, Sophmore, Junior, Senior
-	}
-
 }
 
