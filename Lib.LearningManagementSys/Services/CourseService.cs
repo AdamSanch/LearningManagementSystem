@@ -46,6 +46,10 @@ namespace Lib.LearningManagementSys.Services
 			return Courses.Where(s => s.Name.ToUpper().Contains(query.ToUpper())
 				|| s.Description.ToUpper().Contains(query.ToUpper()));
         }
+		public Course? FindCourse(string codeQuery)
+		{
+			return CourseList.FirstOrDefault(c => c.Code == codeQuery);
+		}
 	}
 }
 

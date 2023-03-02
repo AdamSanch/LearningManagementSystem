@@ -3,16 +3,20 @@ namespace Lib.LearningManagementSys.People
 {
 	public class Person
 	{
+        private static int id = 0;
         public string Name { get; set; }
+
+        public int Id { get; }
 
         public Person()
 		{
 			Name = String.Empty;
+            Id = id++;
 		}
 
         public override string ToString()
         {
-            return $"{Name}";
+            return $"({Id})-{Name}";
         }
     }
 }

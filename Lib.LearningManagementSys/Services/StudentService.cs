@@ -5,13 +5,13 @@ namespace Lib.LearningManagementSys.Services
 {
 	public class StudentService
 	{
-        private List<Student> studentList;
+        private List<Person> studentList;
 
         private static StudentService? instance;
 
         private StudentService()
         {
-            studentList = new List<Student>();
+            studentList = new List<Person>();
 
         }
 
@@ -28,12 +28,12 @@ namespace Lib.LearningManagementSys.Services
             }
         }
 
-        public void Add(Student student)
+        public void Add(Person person)
 		{
-			studentList.Add(student);
+			studentList.Add(person);
 		}
 
-        public List<Student> Students
+        public List<Person> Students
         {
             get
             {
@@ -41,7 +41,7 @@ namespace Lib.LearningManagementSys.Services
             }
         }
 
-        public IEnumerable<Student> SearchStudents(string name)
+        public IEnumerable<Person> SearchStudents(string name)
         {
             return studentList.Where(s => s.Name.ToUpper().Contains(name.ToUpper()));
         }

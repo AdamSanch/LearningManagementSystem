@@ -15,36 +15,64 @@ namespace LearningManagementSys.Helpers
             courseService = CourseService.Current;
         }
 
-        public void CreateStudentRecord(Student? updateStudent = null)
+        public void CreateStudentRecord(Person? updateStudent = null)
 		{
             bool isNew = false;
             if (updateStudent == null)
             {
                 isNew = true;
-                updateStudent = new Student();
+
+                Console.WriteLine("Is this person a:");
+                Console.WriteLine("(S)tudent?");
+                Console.WriteLine("(T)A?");
+                Console.WriteLine("(I)nstructor?");
+                var personType = Console.ReadLine() ?? String.Empty;
+                if (personType.Equals("S", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    updateStudent = new Student();
+                }
+                else if (personType.Equals("T", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    updateStudent = new TeachingAssistant();
+                }
+                else if (personType.Equals("I", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    updateStudent = new Instructor();
+                }
+                else
+                {
+                    return;
+                }
+
             }
 
-            Console.WriteLine("Enter student name:");
-            var name = Console.ReadLine();
+            Console.WriteLine("Enter their name:");
+            var name = Console.ReadLine() ?? string.Empty;
+            //Console.WriteLine("Enter their ID:");
+            //var id = Console.ReadLine() ?? string.Empty;
+            if  (updateStudent is Student)
+            {
+                Console.WriteLine("Enter student year ( (F)reshman, s(O)phmore, (J)unior, (S)enior ):");
+                var classification = Console.ReadLine() ?? string.Empty;
+                PersonClassification classEnum = PersonClassification.Freshman;
+                if (classification.Equals("O", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    classEnum = PersonClassification.Sophmore;
+                }
+                else if (classification.Equals("J", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    classEnum = PersonClassification.Junior;
+                }
+                else if (classification.Equals("S", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    classEnum = PersonClassification.Senior;
+                }
+                (updateStudent as Student).Classification = classEnum;
+            }
+            
 
-            Console.WriteLine("Enter student year ( (F)reshman, s(O)phmore, (J)unior, (S)enior ):");
-            var classification = Console.ReadLine() ?? string.Empty;
-            PersonClassification classEnum = PersonClassification.Freshman;
-            if (classification.Equals("O", StringComparison.InvariantCultureIgnoreCase))
-            {
-                classEnum = PersonClassification.Sophmore;
-            }
-            else if (classification.Equals("J", StringComparison.InvariantCultureIgnoreCase))
-            {
-                classEnum = PersonClassification.Junior;
-            }
-            else if (classification.Equals("S", StringComparison.InvariantCultureIgnoreCase))
-            {
-                classEnum = PersonClassification.Senior;
-            }
-
-            updateStudent.Name = name ?? string.Empty;
-            updateStudent.Classification = classEnum;
+            updateStudent.Name = name;
+            //updateStudent.Id = int.Parse(id ?? "0");
 
             if (isNew)
             {

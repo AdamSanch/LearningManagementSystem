@@ -14,7 +14,7 @@ namespace Lib.LearningManagementSys.People
 
         public override string ToString()
         {
-            return $"{Name} - {Classification}";
+            return $"({Id})-{Name} - {Classification}";
         }
     }
 

@@ -33,6 +33,10 @@ namespace LearningManagementSys.Helpers
             var name = Console.ReadLine();
             Console.WriteLine("Enter the course code:");
             var code = Console.ReadLine();
+            while (courseService.Courses.Any(c => c.Code == code)){
+                Console.WriteLine("Code already exist, enter course code:");
+                code = Console.ReadLine();
+            }
             Console.WriteLine("What is the course description?:");
             var description = Console.ReadLine();
 
@@ -52,7 +56,7 @@ namespace LearningManagementSys.Helpers
             Console.WriteLine("Enter the code of the course to update:");
             ListCourses();
             var code = Console.ReadLine() ?? string.Empty;
-            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.ToUpper() == code.ToUpper());
+            var selectedCourse = courseService.FindCourse(code);
 
             if (selectedCourse != null)
             {
