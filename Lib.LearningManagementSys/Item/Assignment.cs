@@ -11,13 +11,16 @@ namespace Lib.LearningManagementSys.Item
 
 		public DateTime DueDate { get; set; }
 
+        public List<Submission> Submissions { get; set; }
+
         public Assignment()
 		{
 			Name = string.Empty;
 			Description = string.Empty;
 			TotalAvailablePoints = 0;
 			DueDate = DateTime.Today;
-		}
+            Submissions = new List<Submission>();
+        }
 
         public override string ToString()
         {

@@ -155,27 +155,37 @@ namespace LearningManagementSys.Helpers
             }
         }
 
-        //private Assignment CreateAssignment(Course updateCourse)
-        //{
-            
+    //private Assignment CreateAssignment(Course updateCourse)
+    //{
+    //contentItem = new AssignmentItem();
 
-            
+    //Console.WriteLine("What is the assignment's name?");
+    //        var name = Console.ReadLine() ?? string.Empty;
+    //Console.WriteLine("What is the assignment description?");
+    //        var description = Console.ReadLine() ?? string.Empty;
+    //Console.WriteLine("How many points is the assignment worth?:");
+    //        var points = Console.ReadLine() ?? string.Empty;
+    //(contentItem as AssignmentItem).Assignment = new Assignment
+    //        {
+    //            Name = name,
+    //            Description = description,
+    //            TotalAvailablePoints = int.Parse(points ?? "0")
+    //        };
+    //    return assignment;
 
-        //    return assignment;
+    //    //assignment.Name = name;
+    //    //assignment.Description = description;
+    //    //assignment.TotalAvailablePoints = int.Parse(points ?? "0");
 
-        //    //assignment.Name = name;
-        //    //assignment.Description = description;
-        //    //assignment.TotalAvailablePoints = int.Parse(points ?? "0");
+    //    //if (selectedGroup != null)
+    //    //{
+    //    //    selectedGroup.Assignments.Add(assignment);
 
-        //    //if (selectedGroup != null)
-        //    //{
-        //    //    selectedGroup.Assignments.Add(assignment);
-                
-        //    //}
-        //    //return assignment;
-        //}
+    //    //}
+    //    //return assignment;
+    //}
 
-        private void AddModule(Course updateCourse)
+    private void AddModule(Course updateCourse)
         {
             var module = new Module();
             bool cont = true;
@@ -256,18 +266,6 @@ namespace LearningManagementSys.Helpers
                                     }
                                 }
                             }
-                            //    foreach(var b in a.Assignments)
-                            //    {
-                            //        if(module.Content.Any(s => (s as AssignmentItem).Assignment == b))
-                            //        {
-                            //            a.Assignments.Remove(b);
-                            //        }
-                            //    }
-                            //    if (!a.Assignments.Any())
-                            //    {
-                            //        updateCourse.AssignmentGroups.Remove(a);
-                            //    }
-                            //}
                             updateCourse.Modules.Remove(module);
                         }
                     }
