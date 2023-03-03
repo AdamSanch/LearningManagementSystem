@@ -64,8 +64,9 @@ namespace LearningManagementSys.Helpers
                 Console.WriteLine("1. Update Course Info");
                 Console.WriteLine("2. Add a Module");
                 Console.WriteLine("3. Update a Module");
-                Console.WriteLine("4. Add students to the roster");
-                Console.WriteLine("5. Remove students from the roster");
+                Console.WriteLine("4. Enter Submisions");
+                Console.WriteLine("5. Add students to the roster");
+                Console.WriteLine("6. Remove students from the roster");
                 var input = Console.ReadLine();
                 if (int.TryParse(input, out int result))
                 {
@@ -83,9 +84,13 @@ namespace LearningManagementSys.Helpers
                     }
                     else if (result == 4)
                     {
-                        AddToRoster(selectedCourse);
+                        EnterSubmissions(selectedCourse);
                     }
                     else if (result == 5)
+                    {
+                        AddToRoster(selectedCourse);
+                    }
+                    else if (result == 6)
                     {
                         RemoveFromRoster(selectedCourse);
                     }
@@ -185,7 +190,7 @@ namespace LearningManagementSys.Helpers
     //    //return assignment;
     //}
 
-    private void AddModule(Course updateCourse)
+        private void AddModule(Course updateCourse)
         {
             var module = new Module();
             bool cont = true;
@@ -352,6 +357,57 @@ namespace LearningManagementSys.Helpers
         
 
             updateModule.Content.Add(contentItem);
+        }
+
+        private void EnterSubmissions(Course updateCourse)
+        {
+            if (updateCourse.AssignmentGroups.Any(s => s.Assignments.Any()))
+            {
+                Console.WriteLine("Enter the Assignment group");
+                updateCourse.AssignmentGroups.ForEach(Console.WriteLine);
+                var groupName = Console.ReadLine() ?? string.Empty;
+                var selectedGroup = updateCourse.FindAssignmentGroup(groupName);
+                if (selectedGroup != null)
+                {
+                    Console.WriteLine("Enter the Assignment name");
+                    selectedGroup.Assignments.ForEach(Console.WriteLine);
+                    var name = Console.ReadLine() ?? string.Empty;
+                    var assignment = selectedGroup.Assignments.FirstOrDefault(s => s.Name == name);
+                    if (assignment != null)
+                    {
+                        Console.WriteLine("Give the code of the Student to add a submission for (Q to quit)");
+                        var cont = true;
+                        while (cont)
+                        {
+                            updateCourse.Roster.Where(s0 => s0 is Student).ToList().Where(s => !assignment.Submissions.Any(s2 => s2.Student.Name == s.Name)).ToList().ForEach(Console.WriteLine);
+                            var input = "Q";
+                            if (updateCourse.Roster.Where(s0 => s0 is Student).ToList().Any(s => !assignment.Submissions.Any(s2 => s2.Student.Name == s.Name)))
+                            {
+                                input = Console.ReadLine() ?? string.Empty;
+                            }
+                            if (input.Equals("Q", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                cont = false;
+                            }
+                            else if (updateCourse.Roster.Where(s0 => s0 is Student).ToList().Where(s => !assignment.Submissions.Any(s2 => s2.Student.Name == s.Name)).ToList().Any(s3 => s3.Id == int.Parse(input ?? "0")))
+                            {
+                                var student = studentService.Students.FirstOrDefault(s => s.Id == int.Parse(input ?? "0"));   //GetPerson(int.Parse(input ?? "0"));
+                                if (student != null)
+                                {
+                                    Console.WriteLine($"What was this students score on {assignment.Name} out of {assignment.TotalAvailablePoints}");
+                                    var score = Console.ReadLine() ?? string.Empty;
+                                    if (double.TryParse(score, out double result))
+                                    {
+                                        double grade = result;
+                                        grade = (grade / assignment.TotalAvailablePoints) * 100;
+                                        assignment.Submissions.Add(new Submission { Grade = grade, Student = (student as Student) });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         public void SearchCourses()
