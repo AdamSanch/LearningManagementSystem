@@ -45,6 +45,10 @@ namespace Lib.LearningManagementSys.Services
         {
             return studentList.Where(s => s.Name.ToUpper().Contains(name.ToUpper()));
         }
+        public Person? GetPerson(int id)
+        {
+            return studentList.FirstOrDefault(p => p.Id == id);
+        }
 	}
 }
 

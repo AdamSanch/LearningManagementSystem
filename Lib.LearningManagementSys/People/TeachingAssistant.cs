@@ -6,6 +6,11 @@ namespace Lib.LearningManagementSys.People
 		public TeachingAssistant()
 		{
 		}
-	}
+
+        public override string ToString()
+        {
+            return $"({Id})-{Name}: Teaching Assistant";
+        }
+    }
 }
 

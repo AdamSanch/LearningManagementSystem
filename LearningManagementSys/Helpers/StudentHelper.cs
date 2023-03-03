@@ -18,11 +18,12 @@ namespace LearningManagementSys.Helpers
         public void CreateStudentRecord(Person? updateStudent = null)
 		{
             bool isNew = false;
+
             if (updateStudent == null)
             {
                 isNew = true;
 
-                Console.WriteLine("Is this person a:");
+                Console.WriteLine("Is this person a");
                 Console.WriteLine("(S)tudent?");
                 Console.WriteLine("(T)A?");
                 Console.WriteLine("(I)nstructor?");
@@ -39,18 +40,15 @@ namespace LearningManagementSys.Helpers
                 {
                     updateStudent = new Instructor();
                 }
-                else
-                {
-                    return;
-                }
-
+                else { return; }
             }
 
             Console.WriteLine("Enter their name:");
             var name = Console.ReadLine() ?? string.Empty;
             //Console.WriteLine("Enter their ID:");
             //var id = Console.ReadLine() ?? string.Empty;
-            if  (updateStudent is Student)
+
+            if (updateStudent is Student)
             {
                 Console.WriteLine("Enter student year ( (F)reshman, s(O)phmore, (J)unior, (S)enior ):");
                 var classification = Console.ReadLine() ?? string.Empty;
@@ -69,11 +67,10 @@ namespace LearningManagementSys.Helpers
                 }
                 (updateStudent as Student).Classification = classEnum;
             }
-            
 
             updateStudent.Name = name;
             //updateStudent.Id = int.Parse(id ?? "0");
-
+         
             if (isNew)
             {
                 studentService.Add(updateStudent);
@@ -106,6 +103,12 @@ namespace LearningManagementSys.Helpers
             studentService.SearchStudents(name).ToList().ForEach(Console.WriteLine);
             Console.WriteLine("Student's Courses:");
             courseService.Courses.Where(s => s.Roster.Any(s2 => s2.Name.ToUpper() == name.ToUpper())).ToList().ForEach(Console.WriteLine);
+        }
+
+        //Temp function
+        public void AddPerson (Person p)
+        {
+            studentService.Add(p);
         }
 	}
 }

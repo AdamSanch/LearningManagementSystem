@@ -12,7 +12,7 @@ namespace Lib.LearningManagementSys.Item
 
         public List<Person> Roster { get; set; }
 
-        public List<Assignment> Assignments { get; set; }
+        public List<AssignmentGroup> AssignmentGroups { get; set; }
 
         public List<Module> Modules { get; set; }
 
@@ -23,7 +23,7 @@ namespace Lib.LearningManagementSys.Item
             Name = string.Empty;
             Description = string.Empty;
             Roster = new List<Person>();
-            Assignments = new List<Assignment>();
+            AssignmentGroups = new List<AssignmentGroup>();
             Modules = new List<Module>();
         }
 
@@ -31,6 +31,13 @@ namespace Lib.LearningManagementSys.Item
         {
             return $"{Name}({Code})";
         }
+
+        public AssignmentGroup? FindAssignmentGroup(string name)
+        {
+            return AssignmentGroups.FirstOrDefault(g => g.Name == name);
+        }
+
+
     }
 }
 

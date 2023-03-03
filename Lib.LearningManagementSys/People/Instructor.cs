@@ -6,6 +6,10 @@ namespace Lib.LearningManagementSys.People
 		public Instructor()
 		{
 		}
-	}
+        public override string ToString()
+        {
+            return $"({Id})-{Name}: Instructor";
+        }
+    }
 }
 
