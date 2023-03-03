@@ -8,6 +8,11 @@ namespace Lib.LearningManagementSys.Item
 		}
 
         public string? HTMLBody { get; set; }
+
+        public override string ToString()
+        {
+            return $"PI - {Name} - {Description}";
+        }
     }
 }
 

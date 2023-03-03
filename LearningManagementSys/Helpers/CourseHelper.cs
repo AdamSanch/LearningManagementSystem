@@ -62,9 +62,10 @@ namespace LearningManagementSys.Helpers
             {
                 Console.WriteLine("Enter a choice below");
                 Console.WriteLine("1. Update Course Info");
-                Console.WriteLine("2. Add an Assignment");
-                Console.WriteLine("3. Add students to the roster");
-                Console.WriteLine("4. Remove students from the roster");
+                Console.WriteLine("2. Add a Module");
+                Console.WriteLine("3. Update a Module");
+                Console.WriteLine("4. Add students to the roster");
+                Console.WriteLine("5. Remove students from the roster");
                 var input = Console.ReadLine();
                 if (int.TryParse(input, out int result))
                 {
@@ -74,13 +75,17 @@ namespace LearningManagementSys.Helpers
                     }
                     else if(result == 2)
                     {
-                        CreateAssignment(selectedCourse);
+                        AddModule(selectedCourse);
                     }
                     else if (result == 3)
                     {
-                        AddToRoster(selectedCourse);
+                        UpdateModule(selectedCourse);
                     }
                     else if (result == 4)
+                    {
+                        AddToRoster(selectedCourse);
+                    }
+                    else if (result == 5)
                     {
                         RemoveFromRoster(selectedCourse);
                     }
@@ -90,7 +95,7 @@ namespace LearningManagementSys.Helpers
 
         private void AddToRoster(Course updateCourse)
         {
-            Console.WriteLine("Give the name of a student you would like to add (Q to quit)");
+            Console.WriteLine("Give the code of a student you would like to add (Q to quit)");
             var cont = true;
             while (cont)
             {
@@ -101,19 +106,20 @@ namespace LearningManagementSys.Helpers
                     input = Console.ReadLine() ?? string.Empty;
                 }
 
-                if (input.Equals("q", StringComparison.InvariantCultureIgnoreCase))
+                if (input.Equals("Q", StringComparison.InvariantCultureIgnoreCase))
                 {
                     cont = false;
                 }
                 else
                 {
-                    var selectedStudent = studentService.Students.Where
-                        (s => !updateCourse.Roster.Any(s2 => s2.Name == s.Name)).ToList().
-                        FirstOrDefault(s => s.Name.ToUpper() == input.ToUpper());
+                    var selectedPerson = studentService.GetPerson(int.Parse(input ?? "0"));
+                    //var selectedStudent = studentService.Students.Where
+                    //    (s => !updateCourse.Roster.Any(s2 => s2.Name == s.Name)).ToList().
+                    //    FirstOrDefault(s => s.Name.ToUpper() == input.ToUpper());
 
-                    if (selectedStudent != null)
+                    if (selectedPerson != null)
                     {
-                        updateCourse.Roster.Add(selectedStudent);
+                        updateCourse.Roster.Add(selectedPerson);
                     }
                 }
             }
@@ -149,39 +155,241 @@ namespace LearningManagementSys.Helpers
             }
         }
 
-        private void CreateAssignment(Course updateCourse)
+        //private Assignment CreateAssignment(Course updateCourse)
+        //{
+            
+
+            
+
+        //    return assignment;
+
+        //    //assignment.Name = name;
+        //    //assignment.Description = description;
+        //    //assignment.TotalAvailablePoints = int.Parse(points ?? "0");
+
+        //    //if (selectedGroup != null)
+        //    //{
+        //    //    selectedGroup.Assignments.Add(assignment);
+                
+        //    //}
+        //    //return assignment;
+        //}
+
+        private void AddModule(Course updateCourse)
         {
-            var assignment = new Assignment();
-            Console.WriteLine("What is the assignment's name?");
+            var module = new Module();
+            bool cont = true;
+
+            Console.WriteLine("What is the module's name?");
             var name = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("What is the assignment description?");
+            Console.WriteLine("What is the module's description?");
             var description = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("How many points is the assignment worth?:");
-            var points = Console.ReadLine();
+            module.Name = name;
+            module.Description = description;
 
-            assignment.Name = name;
-            assignment.Description = description;
-            assignment.TotalAvailablePoints = int.Parse(points ?? "0");
+            while (cont)
+            {
+                Console.WriteLine("Would you like to add a content item to this module?(Y)o(N)");
+                var ans = Console.ReadLine() ?? String.Empty;
+                if (ans.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    CreateContentItem(updateCourse, module);
+                }
+                else if (ans.Equals("N", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    cont = false;
+                }
 
-            updateCourse.Assignments.Add(assignment);
+            }
+            updateCourse.Modules.Add(module);
+
+        }
+
+        private void UpdateModule(Course updateCourse)
+        {
+            if (updateCourse.Modules.Any())
+            {
+                Console.WriteLine("Enter name of module?");
+                updateCourse.Modules.ForEach(Console.WriteLine);
+                var name = Console.ReadLine() ?? string.Empty;
+                var module = updateCourse.Modules.FirstOrDefault(m => m.Name.ToUpper() == name.ToUpper());
+
+                if (module != null)
+                {
+                    Console.WriteLine("Would you like to:");
+                    Console.WriteLine("1. Update module information:");
+                    Console.WriteLine("2. Add a Content Item to the module:");
+                    Console.WriteLine("3. Remove a Content Item from the module:");
+                    Console.WriteLine("4. Remove module:");
+                    var input = Console.ReadLine();
+                    if (int.TryParse(input, out int result))
+                    {
+                        if (result == 1)
+                        {
+                            Console.WriteLine("What is the module's name?");
+                            var newName = Console.ReadLine() ?? string.Empty;
+                            Console.WriteLine("What is the module's description?");
+                            var newDescription = Console.ReadLine() ?? string.Empty;
+                            module.Name = newName;
+                            module.Description = newDescription;
+                        }
+                        else if (result == 2)
+                        {
+                            CreateContentItem(updateCourse, module);
+                        }
+                        else if (result == 3)
+                        {
+
+                        }
+                        else if (result == 4)
+                        {
+
+                            List<ContentItem> assignmentItems = module.Content.Where(s => s is AssignmentItem).ToList();
+
+                            foreach (var a in updateCourse.AssignmentGroups)
+                            {
+                                foreach (var b in assignmentItems)
+                                {
+                                    if (a.Assignments.Any(s => s.Name == b.Name))
+                                    {
+                                        a.Assignments.Remove((b as AssignmentItem).Assignment);
+                                    }
+                                }
+                            }
+                            //    foreach(var b in a.Assignments)
+                            //    {
+                            //        if(module.Content.Any(s => (s as AssignmentItem).Assignment == b))
+                            //        {
+                            //            a.Assignments.Remove(b);
+                            //        }
+                            //    }
+                            //    if (!a.Assignments.Any())
+                            //    {
+                            //        updateCourse.AssignmentGroups.Remove(a);
+                            //    }
+                            //}
+                            updateCourse.Modules.Remove(module);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CreateContentItem(Course updateCourse, Module updateModule)
+        {
+            var contentItem = new ContentItem();
+            bool Assign = false;
+
+            Console.WriteLine("Is this Content Item a");
+            Console.WriteLine("(F)ile?");
+            Console.WriteLine("(A)ssignment?");
+            Console.WriteLine("(P)age?");
+            var personType = Console.ReadLine() ?? String.Empty;
+            if (personType.Equals("F", StringComparison.InvariantCultureIgnoreCase))
+            {
+                contentItem = new FileItem();
+            }
+            else if (personType.Equals("P", StringComparison.InvariantCultureIgnoreCase))
+            {
+                contentItem = new PageItem();
+            }
+            else if (personType.Equals("A", StringComparison.InvariantCultureIgnoreCase))
+            {
+                contentItem = new AssignmentItem();
+
+                Console.WriteLine("What is the assignment's name?");
+                var name = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("What is the assignment description?");
+                var description = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("How many points is the assignment worth?:");
+                var points = Console.ReadLine() ?? string.Empty;
+                (contentItem as AssignmentItem).Assignment = new Assignment
+                {
+                    Name = name,
+                    Description = description,
+                    TotalAvailablePoints = int.Parse(points ?? "0")
+                };
+
+                contentItem.Name = (contentItem as AssignmentItem).Assignment.Name;
+                contentItem.Description = (contentItem as AssignmentItem).Assignment.Description;
+
+                var groupName = string.Empty;
+                if (updateCourse.AssignmentGroups.Any())
+                {
+                    Console.WriteLine("Enter name of the group for the assignment, or (C) to create new group");
+                    updateCourse.AssignmentGroups.ForEach(Console.WriteLine);
+                    groupName = Console.ReadLine() ?? string.Empty;
+                }
+                if (!updateCourse.AssignmentGroups.Any() || groupName.Equals("C", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    Console.WriteLine("Enter new assignment group's name:");
+                    groupName = Console.ReadLine() ?? string.Empty;
+                    Console.WriteLine("Enter new assignment group's weight:");
+                    var groupWeight = Console.ReadLine() ?? string.Empty;
+                    updateCourse.AssignmentGroups.Add(new AssignmentGroup { Name = groupName, Weight = int.Parse(groupWeight ?? "100") });
+                }
+                var selectedGroup = updateCourse.FindAssignmentGroup(groupName);
+
+                if (selectedGroup != null)
+                {
+                    selectedGroup.Assignments.Add((contentItem as AssignmentItem).Assignment);
+                }
+
+                Assign = true;
+            }
+            else
+            {
+                return;
+            }
+
+            if (!Assign)
+            {
+                Console.WriteLine("What is the Content Item's name?");
+                var name = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("What is the Content Items's description?");
+                var description = Console.ReadLine() ?? string.Empty;
+                contentItem.Name = name;
+                contentItem.Description = description;
+            }
+        
+
+            updateModule.Content.Add(contentItem);
         }
 
         public void SearchCourses()
         {
-            Console.WriteLine("Enter the name/description of the course your looking for:");
+            Console.WriteLine("Enter the code of the course your looking for:");
             ListCourses();
             var query = Console.ReadLine() ?? string.Empty;
 
-            courseService.SearchCourses(query).ToList().ForEach(s => Console.WriteLine($"{s.Name}({s.Code}) - {s.Description}\nRoster:"));
-            courseService.SearchCourses(query).ToList().ForEach(s => s.Roster.ForEach(Console.WriteLine));
-            Console.WriteLine("Current Assignemnts:");
-            courseService.SearchCourses(query).ToList().ForEach(s => s.Assignments.ForEach(Console.WriteLine));
+            var selectedCourse = courseService.FindCourse(query);
+
+            if (selectedCourse != null) {
+                Console.WriteLine($"{selectedCourse.Name}({selectedCourse.Code}) - {selectedCourse.Description}\nRoster:");
+                //courseService.FindCourse(query).Console.WriteLine($"{Name}({s.Code}) - {s.Description}\nRoster:"));
+                selectedCourse.Roster.ForEach(Console.WriteLine);
+                Console.WriteLine("Current Assignemnts:");
+                foreach (var a in selectedCourse.AssignmentGroups)
+                {
+                    Console.WriteLine(a);
+                    a.Assignments.ForEach(Console.WriteLine);
+                }
+                Console.WriteLine("Current Modules:");
+                foreach (var m in selectedCourse.Modules)
+                {
+                    Console.WriteLine(m);
+                    m.Content.ForEach(Console.WriteLine);
+                }
+                //courseService.SearchCourses(query).ToList().ForEach(s => s.AssignmentGroups.ForEach(s => Console.WriteLine($"{s.Name} \n {s.Assignments.ForEach(Console.WriteLine)}")));
+            }
         }
 
         public void ListCourses()
         {
             courseService.Courses.ForEach(Console.WriteLine);
         }
+
+
 	}
 }
 

@@ -8,6 +8,11 @@ namespace Lib.LearningManagementSys.Item
 		}
 
         public string? FilePath{ get; set; }
+
+        public override string ToString()
+        {
+            return $"CI - {Name} - {Description}";
+        }
     }
 }
 

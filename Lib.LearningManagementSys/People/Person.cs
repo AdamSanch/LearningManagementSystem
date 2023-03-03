@@ -3,7 +3,7 @@ namespace Lib.LearningManagementSys.People
 {
 	public class Person
 	{
-        private static int id = 0;
+        private static int id = 1;
         public string Name { get; set; }
 
         public int Id { get; }
