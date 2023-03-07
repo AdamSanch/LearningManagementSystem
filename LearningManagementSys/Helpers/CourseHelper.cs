@@ -129,6 +129,10 @@ namespace LearningManagementSys.Helpers
                     if (selectedPerson != null)
                     {
                         updateCourse.Roster.Add(selectedPerson);
+                        if (selectedPerson is Student)
+                        {
+                            studentService.UpdateAddGrade((selectedPerson as Student), updateCourse);
+                        }
                     }
                 }
             }
@@ -153,12 +157,14 @@ namespace LearningManagementSys.Helpers
                 }
                 else
                 {
-                    var selectedStudent = updateCourse.Roster.FirstOrDefault(s => s.Name.ToUpper() == input.ToUpper());
-                        
-
-                    if (selectedStudent != null)
+                    var selectedPerson = updateCourse.Roster.FirstOrDefault(s => s.Name.ToUpper() == input.ToUpper());
+                    if (selectedPerson != null)
                     {
-                        updateCourse.Roster.Remove(selectedStudent);
+                        updateCourse.Roster.Remove(selectedPerson);
+                        if (selectedPerson is Student)
+                        {
+                            (studentService.Students.FirstOrDefault(s => s.Id == selectedPerson.Id) as Student).Grades.Remove(updateCourse.Code);
+                        }
                     }
                 }
             }
@@ -276,6 +282,13 @@ namespace LearningManagementSys.Helpers
                                 }
                             }
                             updateCourse.Modules.Remove(module);
+                            foreach (var p in updateCourse.Roster)
+                            {
+                                if (p is Student)
+                                {
+                                    studentService.UpdateAddGrade((p as Student), updateCourse);
+                                }
+                            }
                         }
                     }
                 }
@@ -340,6 +353,13 @@ namespace LearningManagementSys.Helpers
                 if (selectedGroup != null)
                 {
                     selectedGroup.Assignments.Add((contentItem as AssignmentItem).Assignment);
+                    //foreach (var p in updateCourse.Roster)
+                    //{
+                    //    if(p is Student)
+                    //    {
+                    //        studentService.UpdateAddGrade((p as Student), updateCourse);
+                    //    }
+                    //}
                 }
 
                 Assign = true;
@@ -406,9 +426,15 @@ namespace LearningManagementSys.Helpers
                             var score = Console.ReadLine() ?? string.Empty;
                             if (double.TryParse(score, out double result))
                             {
-                                double grade = result;
-                                grade = (grade / assignment.TotalAvailablePoints) * 100;
-                                assignment.Submissions.Add(new Submission { Grade = grade, Student = (student as Student) });
+                                //double grade = result;
+                                //grade = (grade / assignment.TotalAvailablePoints) * 100;
+                                if (result <= assignment.TotalAvailablePoints && result > 0)
+                                {
+                                    assignment.Submissions.Add(new Submission { Grade = result, Student = (student as Student) });
+                                    studentService.UpdateAddGrade((student as Student), updateCourse);
+                                    Console.WriteLine(student);
+                                }
+                                else { Console.WriteLine("Error in submission entry"); }
                             }
                         }     
                     }
@@ -425,16 +451,17 @@ namespace LearningManagementSys.Helpers
             var selectedCourse = courseService.FindCourse(query);
 
             if (selectedCourse != null) {
-                Console.WriteLine($"{selectedCourse.Name}({selectedCourse.Code}) - {selectedCourse.Description}\nRoster:");
+                Console.WriteLine($"{selectedCourse.Name}({selectedCourse.Code}) - {selectedCourse.Description}");
+                Console.WriteLine("-------Roster-------");
                 //courseService.FindCourse(query).Console.WriteLine($"{Name}({s.Code}) - {s.Description}\nRoster:"));
                 selectedCourse.Roster.ForEach(Console.WriteLine);
-                Console.WriteLine("Current Assignemnts:");
+                Console.WriteLine("-------Current Assignemnts-------");
                 foreach (var a in selectedCourse.AssignmentGroups)
                 {
                     Console.WriteLine(a);
                     a.Assignments.ForEach(Console.WriteLine);
                 }
-                Console.WriteLine("Current Modules:");
+                Console.WriteLine("-------Current Modules-------");
                 foreach (var m in selectedCourse.Modules)
                 {
                     Console.WriteLine(m);

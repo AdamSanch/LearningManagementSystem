@@ -14,7 +14,7 @@ namespace Lib.LearningManagementSys.Item
 
         public override string ToString()
         {
-            return $"AI - {Name} - {Description}";
+            return $"Assignment - {Name} - {Description}";
         }
     }
 }

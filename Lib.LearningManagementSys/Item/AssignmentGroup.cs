@@ -16,7 +16,7 @@ namespace Lib.LearningManagementSys.Item
 
         public override string ToString()
         {
-            return $"Group: {Name}";
+            return $"-- {Name} --";
         }
     }
 }

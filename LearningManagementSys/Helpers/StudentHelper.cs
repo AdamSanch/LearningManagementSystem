@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Linq;
 using Lib.LearningManagementSys.People;
 using Lib.LearningManagementSys.Services;
 
@@ -95,14 +96,26 @@ namespace LearningManagementSys.Helpers
             studentService.Students.ForEach(Console.WriteLine);
         }
 
-        public void SearchStudents()
+        public void PrintStudents()
         {
-            Console.WriteLine("Enter student name:");
-            var name = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Enter student id:");
+            ListStudents();
+            var id = Console.ReadLine() ?? string.Empty;
 
-            studentService.SearchStudents(name).ToList().ForEach(Console.WriteLine);
-            Console.WriteLine("Student's Courses:");
-            courseService.Courses.Where(s => s.Roster.Any(s2 => s2.Name.ToUpper() == name.ToUpper())).ToList().ForEach(Console.WriteLine);
+            var person = studentService.GetPerson(int.Parse(id));
+
+            Console.WriteLine(person);
+            if(person is Student)
+            {
+                var str = "Courses:";
+                foreach (var g in (person as Student).Grades)
+                {
+                    str = str + $"\n{g.Key} - {g.Value}";
+                }
+                Console.WriteLine(str);
+            }
+            //Console.WriteLine("Student's Courses");
+            //courseService.Courses.Where(s => s.Roster.Any(s2 => s2.Name.ToUpper() == name.ToUpper())).ToList().ForEach(Console.WriteLine);
         }
 
         //Temp function
