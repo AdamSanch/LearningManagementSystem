@@ -107,7 +107,7 @@ namespace MyApp
                 }
                 else if (result == 4)
                 {
-                    studentHelper.SearchStudents();
+                    studentHelper.PrintStudents();
                 }
             }
         }

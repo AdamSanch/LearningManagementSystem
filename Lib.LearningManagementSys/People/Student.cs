@@ -5,16 +5,21 @@ namespace Lib.LearningManagementSys.People
 	{
 		public Student()
 		{
-            Grades = String.Empty;
+            Grades = new Dictionary<string, double>();
         }
 
         public PersonClassification Classification { get; set; }
 
-        public string Grades { get; set; }
+        public Dictionary<string, double> Grades { get; set; }
 
         public override string ToString()
         {
-            return $"({Id})-{Name}: Student, {Classification}";
+            string s = $"({Id})-{Name}: Student, {Classification}";
+            foreach(var g in Grades)
+            {
+                s = s + $"\n{g.Key}-{g.Value}";
+            }
+                return s;
         }
     }
 
