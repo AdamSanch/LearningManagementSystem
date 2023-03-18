@@ -86,8 +86,8 @@ namespace MyApp
         {
             Console.WriteLine("1. Add a student to the list");
             Console.WriteLine("2. Update a student on the list");
-            Console.WriteLine("3. Print student list");
-            Console.WriteLine("4. Search for a student");
+            Console.WriteLine("3. Search student list");
+            //Console.WriteLine("4. Search for a student");
             var input = Console.ReadLine();
             Console.WriteLine();
 
@@ -105,10 +105,10 @@ namespace MyApp
                 {
                     studentHelper.ListStudents();
                 }
-                else if (result == 4)
-                {
-                    studentHelper.PrintStudents();
-                }
+                //else if (result == 4)
+                //{
+                //    studentHelper.PrintStudents();
+                //}
             }
         }
 
@@ -116,8 +116,8 @@ namespace MyApp
         {
             Console.WriteLine("1. Add a course to the list");
             Console.WriteLine("2. Update a course on the list");
-            Console.WriteLine("3. Print course list");
-            Console.WriteLine("4. Search for a course");
+            Console.WriteLine("3. Search course list");
+            //Console.WriteLine("4. Search for a course");
             var input = Console.ReadLine();
             Console.WriteLine();
 
@@ -135,10 +135,10 @@ namespace MyApp
                 {
                     courseHelper.ListCourses();
                 }
-                else if (result == 4)
-                {
-                    courseHelper.SearchCourses();
-                }
+                //else if (result == 4)
+                //{
+                //    courseHelper.SearchCourses();
+                //}
             }
         }
     }
