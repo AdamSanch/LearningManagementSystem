@@ -13,11 +13,13 @@ namespace LearningManagementSys.Helpers
 	{
 		private CourseService courseService;
         private StudentService studentService;
+        private ListNavigator<Course> courseNavigator;
 
         public CourseHelper()
         {
             courseService = CourseService.Current;
             studentService = StudentService.Current;
+            courseNavigator = new ListNavigator<Course>(courseService.Courses, 2);
         }
 
         public void CreateUpdateCourseRecord(Course? updateCourse = null)
@@ -57,14 +59,14 @@ namespace LearningManagementSys.Helpers
 
         public void UpdateCourse()
         {
+            bool cont = true;
             Console.WriteLine("Enter the code of the course to update:");
-            ListCourses();
+            courseService.Courses.ForEach(Console.WriteLine);
             var code = Console.ReadLine() ?? string.Empty;
             var selectedCourse = courseService.FindCourse(code);
-
-            if (selectedCourse != null)
-            {
-                Console.WriteLine("Enter a choice below");
+            if (selectedCourse == null) { cont = false; }
+            while (cont) { 
+                Console.WriteLine("Enter a choice below or (Q)uit");
                 Console.WriteLine("1. Update Course Info");
                 Console.WriteLine("2. Add a Module");
                 Console.WriteLine("3. Update a Module");
@@ -72,7 +74,10 @@ namespace LearningManagementSys.Helpers
                 Console.WriteLine("5. Add students to the roster");
                 Console.WriteLine("6. Remove students from the roster");
                 var input = Console.ReadLine();
-                if (int.TryParse(input, out int result))
+
+                if (input.Equals("q", StringComparison.CurrentCultureIgnoreCase)){ cont = false;}
+
+                else if (int.TryParse(input, out int result))
                 {
                     if(result == 1)
                     {
@@ -317,22 +322,6 @@ namespace LearningManagementSys.Helpers
             {
                 contentItem = new AssignmentItem();
 
-                Console.WriteLine("What is the assignment's name?");
-                var name = Console.ReadLine() ?? string.Empty;
-                Console.WriteLine("What is the assignment description?");
-                var description = Console.ReadLine() ?? string.Empty;
-                Console.WriteLine("How many points is the assignment worth?:");
-                var points = Console.ReadLine() ?? string.Empty;
-                (contentItem as AssignmentItem).Assignment = new Assignment
-                {
-                    Name = name,
-                    Description = description,
-                    TotalAvailablePoints = int.Parse(points ?? "0")
-                };
-
-                contentItem.Name = (contentItem as AssignmentItem).Assignment.Name;
-                contentItem.Description = (contentItem as AssignmentItem).Assignment.Description;
-
                 var groupName = string.Empty;
                 if (updateCourse.AssignmentGroups.Any())
                 {
@@ -349,6 +338,22 @@ namespace LearningManagementSys.Helpers
                     updateCourse.AssignmentGroups.Add(new AssignmentGroup { Name = groupName, Weight = int.Parse(groupWeight ?? "100") });
                 }
                 var selectedGroup = updateCourse.FindAssignmentGroup(groupName);
+
+                Console.WriteLine("What is the assignment's name?");
+                var name = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("What is the assignment description?");
+                var description = Console.ReadLine() ?? string.Empty;
+                Console.WriteLine("How many points is the assignment worth?:");
+                var points = Console.ReadLine() ?? string.Empty;
+                (contentItem as AssignmentItem).Assignment = new Assignment
+                {
+                    Name = name,
+                    Description = description,
+                    TotalAvailablePoints = int.Parse(points ?? "0")
+                };
+
+                contentItem.Name = (contentItem as AssignmentItem).Assignment.Name;
+                contentItem.Description = (contentItem as AssignmentItem).Assignment.Description;
 
                 if (selectedGroup != null)
                 {
@@ -428,7 +433,7 @@ namespace LearningManagementSys.Helpers
                             {
                                 //double grade = result;
                                 //grade = (grade / assignment.TotalAvailablePoints) * 100;
-                                if (result <= assignment.TotalAvailablePoints && result > 0)
+                                if (result <= assignment.TotalAvailablePoints && result >= 0)
                                 {
                                     assignment.Submissions.Add(new Submission { Grade = result, Student = (student as Student) });
                                     studentService.UpdateAddGrade((student as Student), updateCourse);
@@ -442,41 +447,106 @@ namespace LearningManagementSys.Helpers
             }
         }
 
-        public void SearchCourses()
+        private void NavigateCourses()
         {
-            Console.WriteLine("Enter the code of the course your looking for:");
-            ListCourses();
-            var query = Console.ReadLine() ?? string.Empty;
+            bool cont = true;
+            ListNavigator<Course> currentNavigator = courseNavigator;
+            while (cont)
+            {
+                Console.WriteLine("---------------------------------");
+                Console.WriteLine("Choose from the following options");
 
-            var selectedCourse = courseService.FindCourse(query);
+                foreach (var pair in currentNavigator.GetCurrentPage())
+                {
+                    Console.WriteLine($"{pair.Key}. {pair.Value}");
+                }
 
-            if (selectedCourse != null) {
-                Console.WriteLine($"{selectedCourse.Name}({selectedCourse.Code}) - {selectedCourse.Description}");
-                Console.WriteLine("-------Roster-------");
-                //courseService.FindCourse(query).Console.WriteLine($"{Name}({s.Code}) - {s.Description}\nRoster:"));
-                selectedCourse.Roster.ForEach(Console.WriteLine);
-                Console.WriteLine("-------Current Assignemnts-------");
-                foreach (var a in selectedCourse.AssignmentGroups)
+                if (currentNavigator.HasPreviousPage)
                 {
-                    Console.WriteLine(a);
-                    a.Assignments.ForEach(Console.WriteLine);
+                    Console.WriteLine("(A)-previous page");
                 }
-                Console.WriteLine("-------Current Modules-------");
-                foreach (var m in selectedCourse.Modules)
+                if (currentNavigator.HasNextPage)
                 {
-                    Console.WriteLine(m);
-                    m.Content.ForEach(Console.WriteLine);
+                    Console.WriteLine("(D)-next page");
                 }
-                //courseService.SearchCourses(query).ToList().ForEach(s => s.AssignmentGroups.ForEach(s => Console.WriteLine($"{s.Name} \n {s.Assignments.ForEach(Console.WriteLine)}")));
+                Console.WriteLine("(Q)-quit\nID to print course info");
+                var input = Console.ReadLine() ?? string.Empty;
+
+                if (input.Equals("A", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    currentNavigator.GoBackward();
+                }
+                else if (input.Equals("D", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    currentNavigator.GoForward();
+                }
+                else if (input.Equals("Q", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    cont = false;
+                }
+                else
+                {
+                    var inputID = int.Parse(input ?? "0");
+                    var selCourse = currentNavigator.GetCurrentPage().FirstOrDefault(n => n.Key == inputID).Value ?? null;
+                    if (selCourse != null)
+                    {
+                        Console.WriteLine("\n**********************");
+                        Console.WriteLine($"{selCourse.Name}({selCourse.Code}) - {selCourse.Description}");
+                        Console.WriteLine("-------Roster-------");
+                        //courseService.FindCourse(query).Console.WriteLine($"{Name}({s.Code}) - {s.Description}\nRoster:"));
+                        selCourse.Roster.ForEach(Console.WriteLine);
+                        Console.WriteLine("-------Current Assignemnts-------");
+                        foreach (var a in selCourse.AssignmentGroups)
+                        {
+                            Console.WriteLine(a);
+                            a.Assignments.ForEach(Console.WriteLine);
+                        }
+                        Console.WriteLine("-------Current Modules-------");
+                        foreach (var m in selCourse.Modules)
+                        {
+                            Console.WriteLine(m);
+                            m.Content.ForEach(Console.WriteLine);
+                        }
+                        cont = false;
+                    }
+                }
+
             }
         }
 
+        //public void SearchCourses()
+        //{
+        //    Console.WriteLine("Enter the code of the course your looking for:");
+        //    ListCourses();
+        //    var query = Console.ReadLine() ?? string.Empty;
+
+        //    var selectedCourse = courseService.FindCourse(query);
+
+        //    if (selectedCourse != null) {
+        //        Console.WriteLine($"{selectedCourse.Name}({selectedCourse.Code}) - {selectedCourse.Description}");
+        //        Console.WriteLine("-------Roster-------");
+        //        //courseService.FindCourse(query).Console.WriteLine($"{Name}({s.Code}) - {s.Description}\nRoster:"));
+        //        selectedCourse.Roster.ForEach(Console.WriteLine);
+        //        Console.WriteLine("-------Current Assignemnts-------");
+        //        foreach (var a in selectedCourse.AssignmentGroups)
+        //        {
+        //            Console.WriteLine(a);
+        //            a.Assignments.ForEach(Console.WriteLine);
+        //        }
+        //        Console.WriteLine("-------Current Modules-------");
+        //        foreach (var m in selectedCourse.Modules)
+        //        {
+        //            Console.WriteLine(m);
+        //            m.Content.ForEach(Console.WriteLine);
+        //        }
+        //        //courseService.SearchCourses(query).ToList().ForEach(s => s.AssignmentGroups.ForEach(s => Console.WriteLine($"{s.Name} \n {s.Assignments.ForEach(Console.WriteLine)}")));
+        //    }
+        //}
+
         public void ListCourses()
         {
-            courseService.Courses.ForEach(Console.WriteLine);
+            NavigateCourses();
         }
-
-
 	}
 }
 
