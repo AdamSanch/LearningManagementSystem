@@ -168,7 +168,7 @@ namespace LearningManagementSys.Helpers
                         updateCourse.Roster.Remove(selectedPerson);
                         if (selectedPerson is Student)
                         {
-                            (studentService.Students.FirstOrDefault(s => s.Id == selectedPerson.Id) as Student).Grades.Remove(updateCourse.Code);
+                            (studentService.Students.FirstOrDefault(s => s.Id == selectedPerson.Id) as Student).Grades.Remove(updateCourse);
                         }
                     }
                 }
