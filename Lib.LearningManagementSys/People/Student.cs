@@ -1,4 +1,6 @@
 ﻿using System;
+using Lib.LearningManagementSys.Item;
+
 namespace Lib.LearningManagementSys.People
 {
 	public class Student : Person
@@ -7,11 +9,11 @@ namespace Lib.LearningManagementSys.People
 
         public PersonClassification Classification { get; set; }
 
-        public Dictionary<string, double> Grades { get; set; }
+        public Dictionary<Course, GpaNumStruct> Grades { get; set; }
 
         public Student()
         {
-            Grades = new Dictionary<string, double>();
+            Grades = new Dictionary<Course,GpaNumStruct>();
         }
 
         public override string ToString()
@@ -19,7 +21,7 @@ namespace Lib.LearningManagementSys.People
             string s = $"({Id})-{Name}: Student, {Classification}";
             foreach(var g in Grades)
             {
-                s = s + $"\n{g.Key}-{g.Value}";
+                s = s + $"\n({g.Key.Code}-{g.Value.numberGrade})";
             }
                 return s;
         }
@@ -28,6 +30,13 @@ namespace Lib.LearningManagementSys.People
     public enum PersonClassification
     {
         Freshman, Sophmore, Junior, Senior
+    }
+    public struct GpaNumStruct
+    {
+        public string letterGrade;
+        public double numberGrade;
+        public int minNumForLetter;
+        public double gpaNumScale;
     }
 }
 

@@ -137,12 +137,13 @@ namespace LearningManagementSys.Helpers
                     if (selStudent != null)
                     {
                         Console.WriteLine(selStudent);
-                        if (selStudent is Student)
+                        if (selStudent is Student && (selStudent as Student).Grades.Any())
                         {
-                            var str = "Courses:";
+                            var str = $"GPA - {String.Format("{0:0.00}", studentService.CalculateGPA(selStudent))}";
+                            str = str + "\nCourses:";
                             foreach (var g in (selStudent as Student).Grades)
                             {
-                                str = str + $"\n{g.Key} - {g.Value}";
+                                str = str + $"\n{g.Key} - {g.Value.letterGrade}";
                             }
                             Console.WriteLine(str);
                         }
