@@ -3,14 +3,16 @@ namespace Lib.LearningManagementSys.People
 {
 	public class Student : Person
 	{
-		public Student()
-		{
-            Grades = new Dictionary<string, double>();
-        }
+		//public double GPA { get; set; }
 
         public PersonClassification Classification { get; set; }
 
         public Dictionary<string, double> Grades { get; set; }
+
+        public Student()
+        {
+            Grades = new Dictionary<string, double>();
+        }
 
         public override string ToString()
         {

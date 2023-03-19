@@ -100,22 +100,22 @@ namespace LearningManagementSys.Helpers
             while (cont)
             {
                 Console.WriteLine("---------------------------------");
-                Console.WriteLine("Choose from the following options");
-
                 foreach (var pair in currentNavigator.GetCurrentPage())
                 {
                     Console.WriteLine($"{pair.Key}. {pair.Value}");
                 }
+                Console.WriteLine("---------------------------------");
 
+                //Console.WriteLine("Choose from the following options");
                 if (currentNavigator.HasPreviousPage)
                 {
-                    Console.WriteLine("(A)-previous page");
+                    Console.WriteLine("* (A)-previous page");
                 }
                 if (currentNavigator.HasNextPage)
                 {
-                    Console.WriteLine("(D)-next page");
+                    Console.WriteLine("* (D)-next page");
                 }
-                Console.WriteLine("(Q)-quit\nID to print student info");
+                Console.WriteLine("* (Q)-quit\n* ID to print student info");
                 var input = Console.ReadLine() ?? string.Empty;
 
                 if (input.Equals("A", StringComparison.InvariantCultureIgnoreCase))
