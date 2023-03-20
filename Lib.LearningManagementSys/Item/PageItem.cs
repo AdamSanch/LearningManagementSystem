@@ -11,7 +11,7 @@ namespace Lib.LearningManagementSys.Item
 
         public override string ToString()
         {
-            return $"PI - {Name} - {Description}";
+            return $"PageItem - {Name} - {Description}";
         }
     }
 }

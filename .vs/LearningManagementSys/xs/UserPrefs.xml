@@ -1,4 +1,33 @@
 ﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{B2252C91-4950-48FB-852C-8AC260C8B5F3}|Default">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.LearningManagementSys PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="LearningManagementSys/Helpers/CourseHelper.cs">
+    <Files>
+      <File FileName="LearningManagementSys/Helpers/CourseHelper.cs" Line="9" Column="1" IsPinned="True" />
+      <File FileName="LearningManagementSys/Helpers/StudentHelper.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="LearningManagementSys" expanded="True">
+            <Node name="LearningManagementSys" expanded="True">
+              <Node name="Helpers" expanded="True">
+                <Node name="CourseHelper.cs" selected="True" />
+              </Node>
+            </Node>
+            <Node name="Lib.LearningManagementSys" expanded="True">
+              <Node name="Item" expanded="True" />
+              <Node name="People" expanded="True" />
+              <Node name="Services" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

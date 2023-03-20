@@ -18,6 +18,8 @@ namespace Lib.LearningManagementSys.Item
 
         public List<Module> Modules { get; set; }
 
+        public List<Announcement> Announcements { get; set; }
+
         public Course()
         {
             Code = string.Empty;
@@ -27,6 +29,7 @@ namespace Lib.LearningManagementSys.Item
             Roster = new List<Person>();
             AssignmentGroups = new List<AssignmentGroup>();
             Modules = new List<Module>();
+            Announcements = new List<Announcement>();
         }
 
         public override string ToString()
