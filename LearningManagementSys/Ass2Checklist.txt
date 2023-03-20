@@ -1,0 +1,23 @@
+﻿Adam Sanchez
+abs15d
+Assignment 2
+
+- [x] Create new, derived models to support modules within a course with ContentItem as a shared base class:
+    - PageItem - contains a string HTMLBody property to support pages inside of a module
+    - AssignmentItem - contains an Assignment property to support assignments inside of a module
+    - FileItem - contains a string FilePath property to support files inside of a module
+- [x] Add the ability to create, read, update, and delete items from the modules list of a course
+- [x] Add new, derived models to support three types of people:
+    - Students
+    - TAs
+    - Instructors
+- [x] Add the ability to provide a grade for a specific assignment to a student in a course.
+- [x] Add the ability to group assignments into assignment groups
+- [x] Add the ability to calculate a weighted average to a student for a course based on a weight given to an assignment group.
+- [x] Add a CreditHours int property to Course and use it to support a feature for calculating the GPA of a student based on
+        all of their coursework (note you can include "current" courses to make this easier, they do not need to be completed)
+- [x] Integrate ListNavigator<T>  into your application to support paging lists of size 5 for students and courses
+- [x] Support creating, reading, updating, and deleting Announcements for a course
+- [x] Ensure that no two courses can have the same course code
+- [x] Add an Id property to the Person model and ensure that no two people can have the same Id
+- [x] Enhance the student list to store students and TAs and instructors. Grades may only be assigned to students.

@@ -19,10 +19,10 @@ namespace Lib.LearningManagementSys.People
         public override string ToString()
         {
             string s = $"({Id})-{Name}: Student, {Classification}";
-            foreach(var g in Grades)
-            {
-                s = s + $"\n({g.Key.Code}-{g.Value.numberGrade})";
-            }
+            //foreach(var g in Grades)
+            //{
+            //    s = s + $"\n({g.Key.Code}-{g.Value.numberGrade})";
+            //}
                 return s;
         }
     }

@@ -88,21 +88,28 @@ namespace Lib.LearningManagementSys.Services
                 {
                     finalGrade = finalGrade + ((assiGroupGrade / numOfSubmissions) * AG.Weight);
                 }
-                finalGrade = finalGrade + AssignGroupLeftover;
-                if (finalGrade > 100) { finalGrade = 100; }
-                int i = 0;
-                while (finalGrade < gradeRanges.ElementAt(i).minNumForLetter) { i++; }
-                var studentGradeStruct = gradeRanges.ElementAt(i);
-                studentGradeStruct.numberGrade = finalGrade;
-                if (!s.Grades.Any(s => s.Key == c))
-                {
-                    s.Grades.Add(c, studentGradeStruct);
-                }
-                else
-                {
-                    s.Grades[c] = studentGradeStruct;
-                }
             }
+            finalGrade = finalGrade + AssignGroupLeftover;
+            if (finalGrade > 100) { finalGrade = 100; }
+            int i = 0;
+            while (finalGrade < gradeRanges.ElementAt(i).minNumForLetter) { i++; }
+            var studentGradeStruct = new GpaNumStruct
+            {
+                letterGrade = gradeRanges.ElementAt(i).letterGrade,
+                numberGrade = finalGrade,
+                minNumForLetter = gradeRanges.ElementAt(i).minNumForLetter,
+                gpaNumScale = gradeRanges.ElementAt(i).gpaNumScale
+            };
+            studentGradeStruct.numberGrade = finalGrade;
+            if (!s.Grades.Any(s => s.Key == c))
+            {
+                s.Grades.Add(c, studentGradeStruct);
+            }
+            else
+            {
+                s.Grades[c] = studentGradeStruct;
+            }
+            
         }
 
         public double CalculateGPA(Person stu)
