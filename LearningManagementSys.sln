@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningManagementSys", "Le
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.LearningManagementSys", "Lib.LearningManagementSys\Lib.LearningManagementSys.csproj", "{B70DBEB7-B5B2-4D07-B29E-453F18131BA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAUI.LearningManagementSystem", "MAUI.LearningManagementSystem\MAUI.LearningManagementSystem.csproj", "{D258212E-9E25-4389-8833-DF8AF2725172}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B70DBEB7-B5B2-4D07-B29E-453F18131BA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B70DBEB7-B5B2-4D07-B29E-453F18131BA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B70DBEB7-B5B2-4D07-B29E-453F18131BA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D258212E-9E25-4389-8833-DF8AF2725172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D258212E-9E25-4389-8833-DF8AF2725172}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D258212E-9E25-4389-8833-DF8AF2725172}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D258212E-9E25-4389-8833-DF8AF2725172}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

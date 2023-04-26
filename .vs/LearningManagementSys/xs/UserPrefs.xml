@@ -1,10 +1,7 @@
-﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{B2252C91-4950-48FB-852C-8AC260C8B5F3}|Default">
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{D258212E-9E25-4389-8833-DF8AF2725172}|Default">
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.LearningManagementSys PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="LearningManagementSys/Helpers/CourseHelper.cs">
     <Files>
       <File FileName="LearningManagementSys/Helpers/CourseHelper.cs" Line="9" Column="1" IsPinned="True" />
@@ -29,5 +26,7 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.MAUI.LearningManagementSystem PreferredExecutionTarget="MyAppleMacCatalystID" FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.LearningManagementSys PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints />
 </Properties>
