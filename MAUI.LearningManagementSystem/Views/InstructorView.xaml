@@ -9,8 +9,10 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Button
-                Text="Cancel"
-                Clicked="CancelClicked"
-                />
+            Text="Enroll Person"
+            Clicked="AddEnrollmentClick"/>
+        <Button
+            Text="Cancel"
+            Clicked="CancelClicked" />
     </VerticalStackLayout>
 </ContentPage>

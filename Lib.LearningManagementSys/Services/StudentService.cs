@@ -1,4 +1,5 @@
 ﻿using System;
+using Lib.LearningManagementSys.Database;
 using Lib.LearningManagementSys.Item;
 using Lib.LearningManagementSys.People;
 
@@ -7,7 +8,7 @@ namespace Lib.LearningManagementSys.Services
 
     public class StudentService
     {
-        private List<Person> studentList;
+        //private List<Person> studentList;
 
         private List<GpaNumStruct> gradeRanges = new List<GpaNumStruct>
         {
@@ -29,7 +30,14 @@ namespace Lib.LearningManagementSys.Services
 
         private StudentService()
         {
-            studentList = new List<Person>();
+        }
+
+        public IEnumerable<Student?> Students
+        {
+            get
+            {
+                return FakeDatabase.People.Where(p => p is Student).Select(p => p as Student);
+            }
         }
 
         public static StudentService Current
@@ -47,24 +55,24 @@ namespace Lib.LearningManagementSys.Services
 
         public void Add(Person person)
         {
-            studentList.Add(person);
+            FakeDatabase.People.Add(person);
         }
 
-        public List<Person> Students
-        {
-            get
-            {
-                return studentList;
-            }
-        }
+        //public List<Person> Students
+        //{
+        //    get
+        //    {
+        //        return studentList;
+        //    }
+        //}
 
-        public IEnumerable<Person> SearchStudents(string name)
+        public IEnumerable<Student?> SearchStudents(string name)
         {
-            return studentList.Where(s => s.Name.ToUpper().Contains(name.ToUpper()));
+            return Students.Where(s => (s != null) && s.Name.ToUpper().Contains(name.ToUpper()));
         }
         public Person? GetPerson(int id)
         {
-            return studentList.FirstOrDefault(p => p.Id == id);
+            return FakeDatabase.People.FirstOrDefault(p => p.Id == id);
         }
         public void UpdateAddGrade(Student s, Course c)
         {

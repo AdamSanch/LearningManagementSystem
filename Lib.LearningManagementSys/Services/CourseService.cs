@@ -1,17 +1,18 @@
 ﻿using System;
+using Lib.LearningManagementSys.Database;
 using Lib.LearningManagementSys.Item;
 
 namespace Lib.LearningManagementSys.Services
 {
 	public class CourseService
 	{
-		private List<Course> CourseList;
+		//private List<Course> CourseList;
 
 		private static CourseService? instance;
 
         private CourseService()
         {
-			CourseList = new List<Course>();
+			//CourseList = new List<Course>();
         }
 
 		public static CourseService Current
@@ -30,14 +31,14 @@ namespace Lib.LearningManagementSys.Services
 
         public void Add(Course course)
 		{
-			CourseList.Add(course);
+            FakeDatabase.Courses.Add(course);
 		}
 
 		public List<Course> Courses
 		{
 			get
 			{
-				return CourseList;
+				return FakeDatabase.Courses;
 			}
 		}
 
@@ -48,7 +49,7 @@ namespace Lib.LearningManagementSys.Services
         }
 		public Course? FindCourse(string codeQuery)
 		{
-			return CourseList.FirstOrDefault(c => c.Code == codeQuery);
+			return FakeDatabase.Courses.FirstOrDefault(c => c.Code == codeQuery);
 		}
 	}
 }

@@ -83,7 +83,7 @@ namespace LearningManagementSys.Helpers
         public void UpdateStudent()
         {
             Console.WriteLine("Enter the name of the student to update:");
-            studentService.Students.ForEach(Console.WriteLine);
+            studentService.Students.ToList().ForEach(Console.WriteLine);
             var name = Console.ReadLine() ?? string.Empty;
 
             var selectedStudent = studentService.Students.FirstOrDefault(s => s.Name == name);
