@@ -58,6 +58,11 @@ namespace Lib.LearningManagementSys.Services
             FakeDatabase.People.Add(person);
         }
 
+        public void Remove(Person person)
+        {
+            FakeDatabase.People.Remove(person);
+        }
+
         //public List<Person> Students
         //{
         //    get

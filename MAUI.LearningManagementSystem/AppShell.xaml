@@ -23,6 +23,10 @@
         Title="Enrollment Details"
         ContentTemplate="{DataTemplate views:PersonDetailView}"
         Route="PersonDetail" />
+    <ShellContent
+        Title="Course Detail"
+        ContentTemplate="{DataTemplate views:CourseDetailView}"
+        Route="CourseDetail" />
 
 </Shell>
 

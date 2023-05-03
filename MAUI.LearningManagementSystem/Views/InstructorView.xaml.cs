@@ -6,7 +6,7 @@ public partial class InstructorView : ContentPage
 {
 	public InstructorView()
 	{
-		InitializeComponent();
+        InitializeComponent();
 		BindingContext = new InstructorViewViewModel();
 	}
 
@@ -17,7 +17,32 @@ public partial class InstructorView : ContentPage
 
     private void AddEnrollmentClick(object sender, EventArgs e)
     {
-        (BindingContext as InstructorViewViewModel).AddClick(Shell.Current);
+        (BindingContext as InstructorViewViewModel).AddEnrollmentClick(Shell.Current);
+    }
+
+    private void EditEnrollmentClick(object sender, EventArgs e)
+    {
+        (BindingContext as InstructorViewViewModel).AddEnrollmentClick(Shell.Current);
+    }
+
+    private void RemoveEnrollmentClick(object sender, EventArgs e)
+    {
+        (BindingContext as InstructorViewViewModel).RemoveEnrollmentClick();
+    }
+
+    private void AddCourseClick(object sender, EventArgs e)
+    {
+        (BindingContext as InstructorViewViewModel).AddCourseClick(Shell.Current);
+    }
+
+    private void Toolbar_EnrollmentsClicked(object sender, EventArgs e)
+    {
+        (BindingContext as InstructorViewViewModel).ShowEnrollments();
+    }
+
+    private void Toolbar_CoursesClicked(object sender, EventArgs e)
+    {
+        (BindingContext as InstructorViewViewModel).ShowCourses();
     }
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
