@@ -5,7 +5,7 @@
              Title="StudentView">
     <VerticalStackLayout>
         <Label 
-            Text="Student View"
+            Text="STUDENT PAGE"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Button
