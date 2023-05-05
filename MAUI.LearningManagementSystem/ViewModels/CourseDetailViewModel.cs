@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using Lib.LearningManagementSys.Item;
 using Lib.LearningManagementSys.People;
 using Lib.LearningManagementSys.Services;
+//using static Android.App.DownloadManager;
 
 namespace MAUI.LearningManagementSystem.ViewModels
 {
@@ -11,9 +13,28 @@ namespace MAUI.LearningManagementSystem.ViewModels
         public int Id { get; set; }
         public string ClassificationString { get; set; }
 
-        public CourseDetailViewModel()
+        private bool EditCourse { get; set; }
+
+        public ObservableCollection<Person> Roster
         {
-            course = new Course();
+            get
+            {
+                return new ObservableCollection<Person>(course.Roster);
+            }
+        }
+
+        public CourseDetailViewModel(Course c = null)
+        {
+            if(c == null)
+            {
+                course = new Course();
+                EditCourse = false;
+            }
+            else
+            {
+                course = c;
+                EditCourse = true;
+            }
         }
 
         public string Name
@@ -30,6 +51,12 @@ namespace MAUI.LearningManagementSystem.ViewModels
         {
             get => course?.Code ?? string.Empty;
             set { if (course != null) course.Code = value; }
+        }
+
+        public string Room
+        {
+            get => course?.Room ?? string.Empty;
+            set { if (course != null) course.Room = value; }
         }
 
         private SemesterClassification StringToClass(string s)
@@ -61,7 +88,10 @@ namespace MAUI.LearningManagementSystem.ViewModels
         {
             course.Classification = StringToClass(ClassificationString);
 
-            CourseService.Current.Add(course);
+            if (!EditCourse)
+            {
+                CourseService.Current.Add(course);
+            }
             s.GoToAsync("//Instructor");
         }
     }

@@ -48,6 +48,7 @@ namespace MAUI.LearningManagementSystem.ViewModels
             var idParam = SelectedStu?.Id ?? 0;
             if (idParam <= 0) { return; }
             s.GoToAsync($"//PersonDetail?personId={idParam}");
+            //s.GoToAsync("//Student");
         }
 
         public void RemoveCourseStudent(Shell s)

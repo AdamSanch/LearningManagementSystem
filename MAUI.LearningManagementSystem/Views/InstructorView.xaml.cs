@@ -4,10 +4,10 @@ namespace MAUI.LearningManagementSystem.Views;
 
 public partial class InstructorView : ContentPage
 {
-	public InstructorView()
-	{
+    public InstructorView()
+    {
         InitializeComponent();
-	}
+    }
 
     private void CancelClicked(object sender, EventArgs e)
     {
@@ -34,6 +34,16 @@ public partial class InstructorView : ContentPage
         (BindingContext as InstructorViewViewModel).AddCourseClick(Shell.Current);
     }
 
+    private void EditCourseClick(object sender, EventArgs e)
+    {
+        (BindingContext as InstructorViewViewModel).AddCourseClick(Shell.Current);
+    }
+
+    //private void RemoveCourseClick(object sender, EventArgs e)
+    //{
+    //    (BindingContext as InstructorViewViewModel).RemoveCourseClick();
+    //}
+
     private void Toolbar_EnrollmentsClicked(object sender, EventArgs e)
     {
         (BindingContext as InstructorViewViewModel).ShowEnrollments();
@@ -50,8 +60,8 @@ public partial class InstructorView : ContentPage
         (BindingContext as InstructorViewViewModel).RefreshView();
     }
 
-    private void ContentPage_NavigatedFrom(object sender, NavigatedFromEventArgs e)
-    {
-        BindingContext = null;
-    }
+    //private void ContentPage_NavigatedFrom(object sender, NavigatedFromEventArgs e)
+    //{
+    //    BindingContext = null;
+    //}
 }

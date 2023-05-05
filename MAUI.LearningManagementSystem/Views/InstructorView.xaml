@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUI.LearningManagementSystem.Views.InstructorView"
              Title="InstructorView"
-             NavigatedTo="ContentPage_NavigatedTo"
-             NavigatedFrom="ContentPage_NavigatedFrom"
-             >
+             NavigatedTo="ContentPage_NavigatedTo">
+             <!--NavigatedFrom="ContentPage_NavigatedFrom"-->
+             
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Text="Enrollments"
@@ -65,10 +65,11 @@
                 />
             <Button
                 Text="Edit Course"
+                Clicked="EditCourseClick"
                 />
-            <Button
+            <!--<Button
                 Text="Remove Course"
-                />
+                />-->
             <Button
                 Text="Cancel"
                 Clicked="CancelClicked"

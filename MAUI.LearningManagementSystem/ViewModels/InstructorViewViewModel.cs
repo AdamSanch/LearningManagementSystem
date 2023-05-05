@@ -14,7 +14,6 @@ namespace MAUI.LearningManagementSystem.ViewModels
         {
             IsEnrollmentsVisible = true;
             IsCoursesVisible = false;
-            SelectedPerson = null;
             RefreshView();
         }
 
@@ -82,6 +81,7 @@ namespace MAUI.LearningManagementSystem.ViewModels
 
         public void RefreshView()
         {
+            SelectedPerson = null;
             NotifyPropertyChanged(nameof(People));
             NotifyPropertyChanged(nameof(Courses));
             NotifyPropertyChanged(nameof(SelectedPerson));
@@ -97,8 +97,21 @@ namespace MAUI.LearningManagementSystem.ViewModels
 
         public void AddCourseClick(Shell s)
         {
-            s.GoToAsync($"//CourseDetail");
+            var Bar = new Dictionary<string, object>
+              {
+                  { "Cor", SelectedCourse }
+              };
+
+            s.GoToAsync("//CourseDetail", Bar);
+            //s.GoToAsync($"//CourseDetail");
         }
+
+        //public void RemoveCourseClick()
+        //{
+        //    if (SelectedCourse == null) { return; }
+
+        //    CourseService.Current.Re
+        //}
 
         public void RemoveEnrollmentClick()
         {

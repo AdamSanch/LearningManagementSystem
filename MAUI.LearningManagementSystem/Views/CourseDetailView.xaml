@@ -38,9 +38,13 @@
                 Text="{Binding Path=Name, Mode=TwoWay}"
                 Grid.Row="1"
                 Grid.Column="1"></Entry>
-            
         </Grid>
-
+        <Label 
+            Text="Room"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"/>
+        <Entry 
+            Text="{Binding Path=Room, Mode=TwoWay}"></Entry>
         <Label 
             Text="Description"
             VerticalOptions="Center" 
@@ -57,7 +61,14 @@
         </StackLayout>
 
         <!--STUDENT ROSTER-->
-        <Grid>
+        <Label 
+            Text="Roster"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"/>
+        <ListView
+            ItemsSource="{Binding Roster}">
+        </ListView>
+        <!--<Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -66,7 +77,7 @@
             <Label Text="Not Enrolled" Grid.Column="0"></Label>
             <Label Text="Buttons" Grid.Column="1"></Label>
             <Label Text="Enrolled" Grid.Column="2"></Label>
-        </Grid>
+        </Grid>-->
 
         <Button Text="Ok"
                 Clicked="OkClicked"

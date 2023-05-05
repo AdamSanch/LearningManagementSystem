@@ -12,6 +12,8 @@ namespace Lib.LearningManagementSys.Item
 
         public string Description { get; set; }
 
+        public string Room { get; set; }
+
         public int CreditHours { get; set; }
 
         public List<Person> Roster { get; set; }
@@ -27,6 +29,7 @@ namespace Lib.LearningManagementSys.Item
             Code = string.Empty;
             Name = string.Empty;
             Description = string.Empty;
+            Room = string.Empty;
             CreditHours = 0;
             Roster = new List<Person>();
             AssignmentGroups = new List<AssignmentGroup>();
@@ -36,7 +39,9 @@ namespace Lib.LearningManagementSys.Item
 
         public override string ToString()
         {
-            return $"{Name}({Code})";
+            string s = $"({Name})-{Code}: /Room:{Room}/ /Semester:{Classification}/ /Description: {Description}/";
+            return s;
+            //return $"{Name}({Code})";
         }
 
         public AssignmentGroup? FindAssignmentGroup(string name)

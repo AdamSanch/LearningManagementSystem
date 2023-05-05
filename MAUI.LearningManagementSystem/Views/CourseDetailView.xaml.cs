@@ -1,7 +1,10 @@
-﻿using Lib.LearningManagementSys.People;
+﻿using Lib.LearningManagementSys.Item;
+using Lib.LearningManagementSys.People;
 using MAUI.LearningManagementSystem.ViewModels;
 
 namespace MAUI.LearningManagementSystem.Views;
+
+[QueryProperty(nameof(selCourse), "Cor")]
 
 public partial class CourseDetailView : ContentPage
 {
@@ -10,6 +13,8 @@ public partial class CourseDetailView : ContentPage
         InitializeComponent();
     }
 
+    public Course selCourse { get; set; }
+
     private void OnLeaving(object sender, NavigatedFromEventArgs e)
     {
         BindingContext = null;
@@ -17,7 +22,7 @@ public partial class CourseDetailView : ContentPage
 
     private void OnArriving(object sender, NavigatedToEventArgs e)
     {
-        BindingContext = new CourseDetailViewModel();
+        BindingContext = new CourseDetailViewModel(selCourse);
     }
 
     private void CancelClicked(object sender, EventArgs e)
