@@ -25,6 +25,11 @@ public partial class PersonDetailView : ContentPage
         BindingContext = new PersonDetailViewModel(PersonId);
     }
 
+    private void AddCourseClick(object sender, EventArgs e)
+    {
+        (BindingContext as PersonDetailViewModel).AddCourse();
+    }
+
     private void OkClick(object sender, EventArgs e)
 	{
         (BindingContext as PersonDetailViewModel).AddPerson();

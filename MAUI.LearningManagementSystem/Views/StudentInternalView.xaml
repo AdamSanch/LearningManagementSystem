@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUI.LearningManagementSystem.Views.StudentInternalView"
+             Title="StudentInternalView"
+             NavigatedTo="OnArriving"
+             NavigatedFrom="OnLeaving"
+             >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Fall"
+            Clicked="Toolbar_FallClicked"
+            />
+        <ToolbarItem
+            Text="Spring"
+            Clicked="Toolbar_SpringClicked"
+           />
+        <ToolbarItem
+            Text="Summer"
+            Clicked="Toolbar_SummerClicked"
+           />
+    </ContentPage.ToolbarItems>
+    <VerticalStackLayout>
+        <Label 
+            Text="Student HomePage"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="Courses"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <ListView
+                ItemsSource="{Binding Courses}"
+                SelectedItem="{Binding SelectedCourse}">
+        </ListView>
+        <Button
+            Text="Add Course"
+            Clicked="AddCourseClick"
+            />
+        <Button
+            Text="Remove Course"
+            Clicked="RemoveCourseClick"
+            />
+        <Button
+                Text="Cancel"
+                Clicked="CancelClicked"
+                /> 
+    </VerticalStackLayout>
+</ContentPage>

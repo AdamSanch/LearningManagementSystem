@@ -7,7 +7,6 @@ public partial class InstructorView : ContentPage
 	public InstructorView()
 	{
         InitializeComponent();
-		BindingContext = new InstructorViewViewModel();
 	}
 
     private void CancelClicked(object sender, EventArgs e)
@@ -47,6 +46,12 @@ public partial class InstructorView : ContentPage
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
+        BindingContext = new InstructorViewViewModel();
         (BindingContext as InstructorViewViewModel).RefreshView();
+    }
+
+    private void ContentPage_NavigatedFrom(object sender, NavigatedFromEventArgs e)
+    {
+        BindingContext = null;
     }
 }

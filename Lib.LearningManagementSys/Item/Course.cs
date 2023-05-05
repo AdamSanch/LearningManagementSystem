@@ -8,6 +8,8 @@ namespace Lib.LearningManagementSys.Item
 
         public string Name { get; set; }
 
+        public SemesterClassification Classification { get; set; }
+
         public string Description { get; set; }
 
         public int CreditHours { get; set; }
@@ -43,6 +45,10 @@ namespace Lib.LearningManagementSys.Item
         }
 
 
+    }
+    public enum SemesterClassification
+    {
+        Fall, Spring, Summer
     }
 }
 

@@ -1,18 +1,21 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Lib.LearningManagementSys.Item;
 using Lib.LearningManagementSys.People;
 using Lib.LearningManagementSys.Services;
+//using static Android.Provider.Contacts;
 
 namespace MAUI.LearningManagementSystem.ViewModels
 {
-	public class PersonDetailViewModel
-	{
+	public class PersonDetailViewModel: INotifyPropertyChanged
+    {
         public string Name { get; set; }
-
         public string ClassificationString { get; set; }
-
         public int Id { get; set; }
+
+        public bool EditPerson { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -23,9 +26,23 @@ namespace MAUI.LearningManagementSystem.ViewModels
 
         public PersonDetailViewModel(int id = 0)
         {
+            EditPerson = false;
             if (id > 0)
             {
                 LoadById(id);
+            }
+        }
+
+        public Course SelectedCourse { get; set; }
+
+        public ObservableCollection<Course> Courses
+        {
+            get
+            {
+                //var student = StudentService.Current.GetPerson(Id) as Student;
+                var filteredList = CourseService.Current.Courses.Where(c => !c.Roster.Contains(StudentService.Current.GetPerson(Id)));
+                return new ObservableCollection<Course>(filteredList);
+                //return new ObservableCollection<Course>(CourseService.Current.Courses.Where(c => !student.Grades.Keys.Any(c2 => c2 == c)));
             }
         }
 
@@ -53,11 +70,30 @@ namespace MAUI.LearningManagementSystem.ViewModels
                 Name = person.Name;
                 Id = person.Id;
                 ClassificationString = ClassToString(person.Classification);
+
+                EditPerson = true;
+
             }
 
             NotifyPropertyChanged(nameof(Name));
             NotifyPropertyChanged(nameof(ClassificationString));
 
+        }
+
+        public void AddCourse()
+        {
+            if (SelectedCourse == null || Id <= 0) { return; }
+
+            var student = StudentService.Current.GetPerson(Id) as Student;
+            student.Grades.Add(SelectedCourse,new GpaNumStruct());
+            SelectedCourse.Roster.Add(student);
+
+            RefreshView();
+        }
+
+        public void RefreshView()
+        {
+            NotifyPropertyChanged(nameof(Courses));
         }
 
         private string ClassToString(PersonClassification pc)

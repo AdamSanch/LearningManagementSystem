@@ -20,6 +20,10 @@
         ContentTemplate="{DataTemplate views:StudentView}"
         Route="Student" />
     <ShellContent
+        Title="Student HomePage"
+        ContentTemplate="{DataTemplate views:StudentInternalView}"
+        Route="StudentInternal" />
+    <ShellContent
         Title="Enrollment Details"
         ContentTemplate="{DataTemplate views:PersonDetailView}"
         Route="PersonDetail" />

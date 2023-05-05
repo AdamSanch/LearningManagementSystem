@@ -1,5 +1,6 @@
 ﻿using System;
 using Lib.LearningManagementSys.Item;
+using Lib.LearningManagementSys.People;
 using Lib.LearningManagementSys.Services;
 
 namespace MAUI.LearningManagementSystem.ViewModels
@@ -8,6 +9,7 @@ namespace MAUI.LearningManagementSystem.ViewModels
 	{
         private Course course;
         public int Id { get; set; }
+        public string ClassificationString { get; set; }
 
         public CourseDetailViewModel()
         {
@@ -30,6 +32,26 @@ namespace MAUI.LearningManagementSystem.ViewModels
             set { if (course != null) course.Code = value; }
         }
 
+        private SemesterClassification StringToClass(string s)
+        {
+            SemesterClassification classification;
+            switch (s)
+            {
+                case "S":
+                    classification = SemesterClassification.Spring;
+                    break;
+                case "U":
+                    classification = SemesterClassification.Summer;
+                    break;
+                case "F":
+                default:
+                    classification = SemesterClassification.Fall;
+                    break;
+            }
+
+            return classification;
+        }
+
         //public string CourseCode
         //{
         //    get => course?.Code ?? string.Empty;
@@ -37,6 +59,8 @@ namespace MAUI.LearningManagementSystem.ViewModels
 
         public void AddCourse(Shell s)
         {
+            course.Classification = StringToClass(ClassificationString);
+
             CourseService.Current.Add(course);
             s.GoToAsync("//Instructor");
         }

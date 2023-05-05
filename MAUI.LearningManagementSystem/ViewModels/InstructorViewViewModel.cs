@@ -14,12 +14,12 @@ namespace MAUI.LearningManagementSystem.ViewModels
         {
             IsEnrollmentsVisible = true;
             IsCoursesVisible = false;
+            SelectedPerson = null;
+            RefreshView();
         }
 
         public bool IsEnrollmentsVisible{ get; set; }
-        
         public bool IsCoursesVisible { get; set; }
-
 
         public Person SelectedPerson { get; set; }
         public Course SelectedCourse { get; set; }
@@ -81,14 +81,17 @@ namespace MAUI.LearningManagementSystem.ViewModels
         }
 
         public void RefreshView()
-		{
+        {
             NotifyPropertyChanged(nameof(People));
             NotifyPropertyChanged(nameof(Courses));
+            NotifyPropertyChanged(nameof(SelectedPerson));
+            NotifyPropertyChanged(nameof(SelectedCourse));
         }
 
         public void AddEnrollmentClick(Shell s)
         {
             var idParam = SelectedPerson?.Id ?? 0;
+            RefreshView();
             s.GoToAsync($"//PersonDetail?personId={idParam}");
         }
 

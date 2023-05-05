@@ -2,15 +2,31 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUI.LearningManagementSystem.Views.StudentView"
-             Title="StudentView">
+             Title="StudentView"
+             NavigatedTo="ContentPage_NavigatedTo">
     <VerticalStackLayout>
-        <Label 
+        <!--<Label 
             Text="STUDENT PAGE"
             VerticalOptions="Center" 
+            HorizontalOptions="Center" />-->
+        <SearchBar
+            Text="{Binding Query, Mode=TwoWay}"
+        ></SearchBar>
+        <Label 
+            Text="University Enrollments"
+            VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <ListView
+            ItemsSource="{Binding People}"
+            SelectedItem="{Binding SelectedStudent}">
+        </ListView>
+        <Button 
+            Text="View/Edit Student"
+            Clicked="ViewEditStudentClick"
+            />
         <Button
-                Text="Cancel"
-                Clicked="CancelClicked"
-                />
+            Text="Cancel"
+            Clicked="CancelClicked"
+            />
     </VerticalStackLayout>
 </ContentPage>

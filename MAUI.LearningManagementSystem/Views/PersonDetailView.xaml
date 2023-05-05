@@ -23,9 +23,23 @@
             <RadioButton Content="Senior"
                          Value="S"/>
         </StackLayout>
+        <VerticalStackLayout IsVisible="{Binding EditPerson}">
+            <Label 
+                Text="University Course List"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+            <ListView
+                ItemsSource="{Binding Courses}"
+                SelectedItem="{Binding SelectedCourse}">
+            </ListView>
+            <Button
+                Text="Add Course"
+                Clicked="AddCourseClick"
+                />
+        </VerticalStackLayout>
         <Button
-            Text="Ok"
-            Clicked="OkClick"
-            />
+        Text="Ok"
+        Clicked="OkClick"
+        />
     </VerticalStackLayout>
 </ContentPage>

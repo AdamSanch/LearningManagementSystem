@@ -2,7 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUI.LearningManagementSystem.Views.CourseDetailView"
-             Title="CourseDetailView">
+             Title="CourseDetailView"
+             NavigatedTo="OnArriving"
+             NavigatedFrom="OnLeaving"
+             >
     <VerticalStackLayout>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -43,6 +46,15 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Entry Text="{Binding Path=Description, Mode=TwoWay}"></Entry>
+        <StackLayout RadioButtonGroup.GroupName="Classifications"
+            RadioButtonGroup.SelectedValue="{Binding ClassificationString}">
+            <RadioButton Content="Fall"
+                         Value="F"/>
+            <RadioButton Content="Spring"
+                         Value="S"/>
+            <RadioButton Content="Summer"
+                         Value="U"/>
+        </StackLayout>
 
         <!--STUDENT ROSTER-->
         <Grid>

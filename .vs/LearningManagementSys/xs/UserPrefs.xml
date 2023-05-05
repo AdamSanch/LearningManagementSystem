@@ -1,32 +1,60 @@
-﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{D258212E-9E25-4389-8833-DF8AF2725172}|Default">
+﻿<Properties StartupConfiguration="{D258212E-9E25-4389-8833-DF8AF2725172}|Default" GitUserInfo="UsingGIT">
+  <Xamarin.Addins.Core.Project ActiveDebugTarget="MyAppleMacCatalystID" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="LearningManagementSys/Helpers/CourseHelper.cs">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/mrsanch/CodingProjects/LearningManagementSystem/MAUI.LearningManagementSystem/Views/StudentInternalView.xaml.cs" relfile="MAUI.LearningManagementSystem/Views/StudentInternalView.xaml.cs" line="23" column="1" />
+      <Breakpoint file="/Users/mrsanch/CodingProjects/LearningManagementSystem/MAUI.LearningManagementSystem/ViewModels/StudentViewViewModel.cs" relfile="MAUI.LearningManagementSystem/ViewModels/StudentViewViewModel.cs" line="47" column="1" />
+      <Breakpoint file="/Users/mrsanch/CodingProjects/LearningManagementSystem/MAUI.LearningManagementSystem/Views/StudentView.xaml.cs" relfile="MAUI.LearningManagementSystem/Views/StudentView.xaml.cs" line="15" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="MAUI.LearningManagementSystem/ViewModels/StudentInternalViewViewModel.cs">
     <Files>
-      <File FileName="LearningManagementSys/Helpers/CourseHelper.cs" Line="9" Column="1" IsPinned="True" />
-      <File FileName="LearningManagementSys/Helpers/StudentHelper.cs" />
+      <File FileName="MAUI.LearningManagementSystem/Views/StudentView.xaml.cs" Line="15" Column="1" />
+      <File FileName="MAUI.LearningManagementSystem/ViewModels/StudentViewViewModel.cs" />
+      <File FileName="MAUI.LearningManagementSystem/ViewModels/StudentInternalViewViewModel.cs" Line="96" Column="13" />
+      <File FileName="Lib.LearningManagementSys/People/Student.cs" />
+      <File FileName="MAUI.LearningManagementSystem/Views/PersonDetailView.xaml" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="LearningManagementSys" expanded="True">
             <Node name="LearningManagementSys" expanded="True">
-              <Node name="Helpers" expanded="True">
-                <Node name="CourseHelper.cs" selected="True" />
-              </Node>
+              <Node name="Helpers" expanded="True" />
             </Node>
             <Node name="Lib.LearningManagementSys" expanded="True">
+              <Node name="Database" expanded="True" />
               <Node name="Item" expanded="True" />
               <Node name="People" expanded="True" />
               <Node name="Services" expanded="True" />
             </Node>
+            <Node name="MAUI.LearningManagementSystem" expanded="True">
+              <Node name="Platforms" expanded="True">
+                <Node name="MacCatalyst" expanded="True" />
+              </Node>
+              <Node name="ViewModels" expanded="True">
+                <Node name="StudentInternalViewViewModel.cs" selected="True" />
+              </Node>
+              <Node name="Views" expanded="True">
+                <Node name="CourseDetailView.xaml" expanded="True" />
+                <Node name="InstructorView.xaml" expanded="True" />
+                <Node name="PersonDetailView.xaml" expanded="True" />
+                <Node name="StudentInternalView.xaml" expanded="True" />
+                <Node name="StudentView.xaml" expanded="True" />
+              </Node>
+              <Node name="AppShell.xaml" expanded="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.MAUI.LearningManagementSystem PreferredExecutionTarget="MyAppleMacCatalystID" FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.MAUI.LearningManagementSystem PreferredExecutionTarget="MyAppleMacCatalystID" />
   <MonoDevelop.Ide.ItemProperties.LearningManagementSys PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints />
 </Properties>

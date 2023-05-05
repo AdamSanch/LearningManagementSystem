@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUI.LearningManagementSystem.Views.InstructorView"
              Title="InstructorView"
-             NavigatedTo="ContentPage_NavigatedTo" >
+             NavigatedTo="ContentPage_NavigatedTo"
+             NavigatedFrom="ContentPage_NavigatedFrom"
+             >
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Text="Enrollments"
@@ -26,7 +28,7 @@
                 HorizontalOptions="Center" />
             <ListView
                 ItemsSource="{Binding People}"
-                SelectedItem="{Binding SelectedPerson}">
+                SelectedItem="{Binding SelectedPerson, Mode=TwoWay}">
             </ListView>
             <Button 
                 Text="Add Enrollment"
